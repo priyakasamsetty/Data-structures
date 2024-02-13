@@ -1,0 +1,456 @@
+create database university
+create table studen1(
+SID int primary key,
+SNAME varchar(50) not null,
+DID int not null foreign key references Dept(DID),
+MOBILE varchar(10),
+Age int null,
+Gender char(1) not null check(Gender='M' or Gender='F'),
+Address varchar(30) not null
+)
+create table Dept
+( 
+DID int primary key,
+DName varchar(10) not null unique
+)
+select * from Dept
+select * from studen1
+insert into Dept values(15,'CSSE')
+insert into Dept values(12,'IT')
+insert into Dept values(5,'CSE')
+insert into Dept values(1,'CIVIL')
+insert into Dept values(03,'AI')
+insert into Dept values(2,'MECH')
+insert into Dept values(4,'ECE')
+insert into Dept values(9,'EIE')
+insert into Dept values(7,'EEE')
+
+insert into studen1 values(1550,'Sailaja',15,99999999,18,'F','chittoor')
+insert into studen1 values(1501,'Thrisha',12,5555555,18,'F','Tirupathi')
+insert into studen1 values(1552,'Lakshmi',5,1111111,18,'F','Anantapur')
+insert into studen1 values(1553,'Ruchitha',1,9999993,18,'F','chittoor')
+insert into studen1 values(1554,'Vijay',15,3293328,18,'M','kadapa')
+insert into studen1 values(1555,'Kumar',3,04904,18,'M','kurnool')
+insert into studen1 values(1556,'Vignesh',2,101023,18,'F','Bangloor')
+insert into studen1 values(1557,'Hema',1,99393,18,'F','Hyd')
+insert into studen1 values(1558,'Poornima',5,93992,18,'F','Guntur')
+insert into studen1 values(1559,'varra',1,4839290,18,'M','chittoor')
+insert into studen1 values(1560,'vasu',3,890423,18,'M','chittoor')
+insert into studen1 values(1561,'Yamini',15,4802,18,'F','chennai')
+insert into studen1 values(1562,'Lokesh',15,930222,19,'M','srikakulam')
+insert into studen1 values(1563,'venu',1,9303566,18,'M','Machalipatnam')
+insert into studen1 values(1564,'pavan',7,90439032,18,'M','krishna')
+insert into studen1 values(1565,'Gnana',1,904355632,18,'F','krishna')
+insert into studen1 values(1566,'pavani',9,94544,21,'F','krishna')
+insert into studen1 values(1567,'Naveen',15,04954653,19,'M','chittoor')
+insert into studen1 values(1568,'keerthi',9,9043905332,20,'F','krishna')
+insert into studen1 values(1569,'Mamatha',3,904390233,17,'F','Tirupathi')
+insert into studen1 values(1570,'Rajitha',9,9043901232,19,'F','kadapa')
+insert into studen1 values(1571,'kamasani',15,9043906532,20,'F','Guntur')
+insert into studen1 values(1572,'Jyothi',12,9045492,21,'F','kurnool')
+insert into studen1 values(1573,'Bharath',03,904345892,19,'M','chittoor')
+insert into studen1 values(1574,'Hari',7,9043903542,20,'M','Kadapa')
+insert into studen1 values(1575,'sunitha',5,9043903542,20,'F','chittoor')
+insert into studen1 values(1576,'sirisha',3,92123242,20,'F','Tirupathi')
+insert into studen1 values(1577,'Diya',12,9435403542,21,'F','krishna')
+insert into studen1 values(1578,'Poornachand',9,9044353322,22,'M','Anantapur')
+create table employee
+( 
+EID int primary key,
+ENAME varchar(40) not null,
+DID int not null foreign key references Dept(DID),
+SALARy money not null,
+GENDEER char(1) not null check(GENDEER='M' or GENDEER='F'),
+CITY varchar(30) null,
+MOBILE varchar(10) null
+)
+select * from employee
+insert into employee values(15,'Yogendra prasad',15,100000,'M','chittoor',4094382)
+insert into employee values(16,'Ramu',12,50000,'M','Tirupathi',89438493)
+insert into employee values(17,'Sandeep',5,80000,'M','Anantapur',4379384)
+insert into employee values(18,'Dhanalakshmi',1,40000,'F','chittoor',3487389)
+insert into employee values(19,'Siva Kumar',15,60000,'M','kadapa',9458954)
+create table coursemaster
+(
+CID int primary key,
+CNAME varchar(50) not null,
+CATEGORY char(1) not null check(CATEGORY='B' or CATEGORY='I' or   CATEGORY='A'),
+FEE money  null check( FEE >=0)
+)
+insert into coursemaster values(101,'C','B',2345)
+insert into coursemaster values(201,'JAVA','I',00)
+insert into coursemaster values(301,'DSA','A',500)
+insert into coursemaster values(401,'DBMS','A',2000)
+insert into coursemaster values(501,'SE','A',2000)
+insert into coursemaster values(601,'C++','A',2000)
+insert into coursemaster values(701,'C#','A',2000)
+insert into coursemaster values(801,'SQl','A',2000)
+insert into coursemaster values(901,'HTML','A',2000)
+insert into coursemaster values(1001,'CSS','A',2000)
+select * from coursemaster
+create table enrollmentmaster
+(
+CID int not null foreign key references coursemaster(CID),
+SID int not null foreign key references studen1(SID),
+DATE date not null,
+GRADE char(1) not null check(GRADE='O' or GRADE='A' or GRADE='B' or GRADE='C' )
+)
+insert into enrollmentmaster values(101,1550,'2023-03-07','O')
+insert into enrollmentmaster values(201,1551,'2023-03-06','A')
+insert into enrollmentmaster values(301,1552,'2023-03-05','B')
+insert into enrollmentmaster values(401,1553,'2023-03-04','C')
+insert into enrollmentmaster values(501,1554,'2023-03-04','A')
+select * from enrollmentmaster
+
+
+/*student names who belongs to department =15 */
+
+select SNAME from studen1 where DID=15
+
+/*students whose age is greater than 20 */
+
+select SNAME from studen1 where Age>20
+
+/*find ids and names of students who belongs to tirupathi and having mobile number */
+
+select SNAME,SID from studen1 where Address='Tirupathi' and MOBILE is not null
+
+/*insert the column email and give constaint as null */
+
+alter table studen1 add Email as EID varchar(30) unique null
+alter table studen1 add EID varchar(30) null
+select Email from studen1
+select EID from studen1
+
+/*Total number of female students */
+
+select count(*) as Count_F from studen1 where GENDER='F'
+
+/*employee name and id whose salary is  in between 40000 and 80000 */
+
+select ENAME,EID from employee where SALARy>40000 and SALARy<80000,
+
+/*name and department of employee who does not belongs to hyderabad */
+
+select sname,did from studen1 where Address != 'hyderabad'
+
+/*Total salary of csse department employeee */
+
+select SUM(SALARy) as SALARY from employee
+
+/* Remove the student who belong to did=3 or Age=19 */
+
+delete from studen1 where DID=3 or Age=19
+
+/*update the email id of the student */
+
+update studen1 set EID ='kamasanisailaja24@gmai.com' where SID=1501
+
+
+alter table studen1 
+drop column Email 
+
+/*Remove the dob from the student table */
+
+alter table studen1 
+drop column DOB 
+
+
+/*find age and sid of student who belongs to did=12*/
+
+select sid,age from studen1 where did=12
+
+output
+sid	age
+1501	18
+1572	21
+1577	21
+
+/*find total no of employees who belongs to did=15 */
+
+select count(*) as count from employee where did=12
+
+output
+count
+1
+
+/*find average age of female students */
+
+select Avg(age) as Total_count from studen1 where Gender='F'
+
+output
+Total_count
+18
+
+/*find total no.of employees whose salary is greater than 90000 and who belongs to did=15 */
+
+select count(*) as Total from employee where DID=15 AND salary>90000
+
+output
+Total
+1
+
+/*find total no.of employees who are coming from tirupathi */
+
+select count(*) as Total from employee where city='Tirupathi'
+
+
+output
+Total
+1
+
+/*add attribute doj into the employee relation with datatype date and constraint as null*/
+
+alter table employee add DOJ date null
+
+output
+
+Commands completed successfully.
+
+
+
+/*insert a column name called Blood group with datatype varchar and constraint as null */
+
+alter table studen1  add  Blood_Group varchar(3) null
+
+output
+Commands completed successfully.
+
+
+alter table employee  add  Blood_Group varchar(3) null
+update employee set Blood_Group='A+'  where eid=15
+update employee set Blood_Group='B+' where eid=16
+update employee set Blood_Group='O+' where eid=17
+update employee set Blood_Group='AB+' where eid=18
+update employee set Blood_Group='A-' where eid=19
+
+output
+Commands completed successfully.
+
+
+/*add designation attribute employee with datatype as varchar(30) and constraint as null*/
+
+alter table employee  add  Desig varchar(30) null
+update employee set Desig='Assist.p' where eid=15
+update employee set Desig='professor' where eid=16
+update employee set Desig='A.p' where eid=17
+update employee set Desig='hod' where eid=18
+update employee set Desig='Assist.p' where eid=19
+
+output
+Commands completed successfully.
+
+EID	EName	            DID   salary	Gender	city	      mobile	Blood_Group	   Desig
+15	Yogendra prasad	15	100000.00	M	     chittoor	4094382	NULL	         Assist.p
+16	Ramu	            12	50000.00	M	     Tirupathi	89438493	NULL       	   professor
+17	Sandeep	       5	80000.00	M	     Anantapur	4379384	NULL	         A.p
+18	Dhanalakshmi	1	40000.00	F	     chittoor	3487389	NULL	         hod
+19	Siva Kumar	      15	60000.00	M	     kadapa	      9458954	NULL	         Assist.p   
+
+/*find avg salary of employee of each department */
+
+select AVG(salary) as Avg_salary from employee 
+group by Did having did=15
+
+output
+Avg_salary
+80000.00
+
+/*update salary of employee to 95000 whose desig is Assist.p and belongs to csse department*/
+
+update employee set salary=95000 where desig='Assist.p'
+
+output
+(2 rows affected)
+
+/*find out the employee who belong to tirupathi or  department is csse */
+
+select ename from employee where city='tirupathi' or Did=15
+
+output
+
+EID	EName	            DID	salary	Gender	city	mobile	Blood_Group	   Desig
+15	Yogendra prasad	15	95000.00	M	chittoor	4094382	A+	        Assist.p
+16	Ramu          	12	50000.00	M	Tirupathi	89438493	B+	        professor
+19	Siva Kumar	       15	95000.00	M	kadapa	9458954	A-	        Assist.p
+
+/*list out the employee whose salary is in between 60000 and 100000 and having blood group AB+ */
+
+select ename from employee 
+where salary >60000 and salary <100000 and Blood_Group='AB+'
+
+output
+ename
+
+/*update doj column to date time and constraint as not null*/
+
+alter table  studen1 add DOJ datetime  null
+
+
+output
+
+Commands completed successfully.
+
+
+/*display the total no.of students who belongs to csse */
+
+select count(sid) as Total_count from studen1 where did=15
+
+output
+Total_count
+6
+
+/*find out employee name who belongs to csse and age is in between 30 and 40 */
+
+select ename from employee where age >30  and age < 40 and did=15
+
+*create s.no with identity (1,1) with bid primary key bname varchar(30) and not null 
+quantity integer null with relation name as Book bank */
+
+
+create table Bookbank
+(
+S_NO int not null identity(1,1),
+Bbid int primary key,
+Bbname varchar(30) not null,
+Quantity int not null
+)
+
+select * from Bookbank
+insert into Bookbank values(1,'Don Quixote',5)
+insert into Bookbank values(2,'Lord of Ring',97)
+insert into Bookbank values(3,'Harry potter',52)
+insert into Bookbank values(4,'There was the None',15)
+insert into Bookbank values(5,'Catcher in the Rye',55)
+
+output
+Commands completed successfully.
+
+/*create a temporary table for student database */
+
+select * into CSSE_stds from studen1 where did=15
+select * from CSSE_stds
+
+output:
+SID	SNAME	      DID	MOBILE	Age	Gender	Address	EID	Blood_Group	DOJ
+155	Sailaja	15	NULL	      18	F	     chittoor	NULL	NULL	NULL
+1550	Sailaja	15	NULL	      18	F	     chittoor	NULL	NULL	NULL
+1554	Vijay  	15	3293328	18	M	     kadapa	      NULL	NULL	NULL
+1561	Yamini	15	4802   	18	F	     chennai	NULL	NULL	NULL
+1562	Lokesh	15	930222	199	M	     srikakulam	NULL	NULL	NULL
+1571	kamasani	15	9043906532	20	F	     Guntur 	NULL	NULL	NULL
+
+
+
+/*update salary to 120000 who belongs to csse and name starts with p*/
+
+update employee set salary=120000 where did= 15 and ename like 'y%'
+
+output:
+
+(1 row affected)
+
+/*find out names of employee who is getting highest salary */
+
+select ename from employee where salary =
+( select Max(salary) as High_salary from employee)
+
+output:
+ename
+Yogendra prasad
+
+/*find out names of employee and doj who does not belongs to IT */
+
+select ename,doj from employee where did!=12
+
+output:
+
+ename	            doj
+Yogendra prasad	NULL
+Sandeep	      NULL
+Dhanalakshmi	NULL
+Siva Kumar	      NULL
+
+/* find the ID's of student who enrolled in java or c */
+
+select distinct s.sid from studen1 as s,coursemaster as c , enrollmentmaster as e 
+where s.sid=e.sid and e.cid=c.cid and c.cid=201 or c.cid=101
+
+output:
+sid
+155
+1501
+1550
+1552
+1553
+1554
+1556
+1557
+1558
+1559
+1561
+1562
+1563
+1564
+1565
+1566
+1568
+1571
+1572
+1574
+1575
+1577
+1578
+
+
+/*find the total number of courses enrolled by each and every student */
+
+select count(c.cid) as count from 
+coursemaster as c ,studen1 as s, enrollmentmaster as e 
+where s.sid=e.sid and e.cid=c.cid and c.cid=s.sid
+
+output:
+count
+0
+
+/*find the names of students who enrolled for the advanced course */
+
+select sname from studen1 as s,coursemaster as c , enrollmentmaster as e 
+where s.sid=e.sid and e.cid=c.cid and c.category='A'
+
+output:
+sname
+Lakshmi
+Ruchitha
+Vijay
+
+/*find out the total no.of book available in the book bank */
+
+select sum(Quantity) as Total_Books from Bookbank
+Total_Books
+224
+
+/*create a view that contains the list of employees whose designation is Assist.p */
+
+create view
+assistant_professors AS
+SELECT * FROM employee
+WHERE desig = 'assistant professor'
+
+select * from assistant_professors
+
+output: 
+EID	EName	DID	salary	Gender	city	mobile	Blood_Group	  Desig 	DOJ
+
+
+
+/*create a view table as it contain student datails who belongs to csse and IT */
+
+create view my_view as select s.sid ,s.sname,s.age,d.dname,
+s.gender from studen1 s ,dept d where s.did=d.did and
+(d.dname='csse' or d.dname='IT')
+
+output:
+Commands completed successfully.
+Query ALL program.txt
+Displaying Query ALL program.txt.
